@@ -1,9 +1,10 @@
 ---
-title: "Rworksheet_Aguirre#2"
+title: "RWorksheet_Aguirre#2"
 author: "Ryza Faith"
-date: "2024-09-26"
+date: "2024-09-20"
 output: html_document
 ---
+
 sequence <- -5:5
 print(sequence)
 
