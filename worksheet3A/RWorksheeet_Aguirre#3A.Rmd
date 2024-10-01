@@ -1,0 +1,138 @@
+---
+title: "RWorksheet_Aguirre#3A"
+author: "Ryza Faith"
+date: "2024-09-30"
+output: pdf_document
+---
+1A.
+```{r}
+first_11_letters <- LETTERS[1:11]
+first_11_letters
+```
+1B.
+```{r}
+odd_letters <- LETTERS[seq(1, 26, by=2)]
+odd_letters
+```
+1C.
+```{r}
+vowels <- LETTERS[c(1,5,9,15,21)]
+vowels
+```
+1D.
+```{r}
+first_11_letters <- letters[1:11]
+first_11_letters
+```
+1E.
+```{r}
+first_11_letters <- letters[15:24]
+first_11_letters
+```
+2A.
+```{r}
+city <- c("Tuguegarao City", "Manila", "Iloilo City", "Tacloban", "Samal Island", "Davao City")
+city
+
+```
+2B.
+```{r}
+temperature <- c(42, 39, 34, 34, 30, 27)
+temperature
+
+```
+2C.
+```{r}
+city_temperature_df <- data.frame(city, temperature)
+city_temperature_df
+
+```
+2D.
+```{r}
+names(city_temperature_df) <- c("City", "Temperature")
+city_temperature_df
+
+```
+2E.
+```{r}
+str(city_temperature_df)
+
+```
+2F.
+```{r}
+city_temperature_df[3:4, ]
+```
+2G.
+```{r}
+city_temperature_df[city_temperature_df$Temperature == max(city_temperature_df$Temperature), ]
+```
+
+2G.
+```{r}
+city_temperature_df[city_temperature_df$Temperature == min(city_temperature_df$Temperature), ]
+
+```
+Matrix
+2A.
+```{r}
+matrix_1 <- matrix(c(1:8, 11:14), nrow = 3, ncol = 4)
+matrix_1
+
+```
+2B.
+```{r}
+matrix_2x <- matrix_1 * 2
+matrix_2x
+```
+2C.
+```{r}
+matrix_1[2, ]
+
+```
+2D.
+```{r}
+matrix_1[1:2, 3:4]
+```
+2E.
+```{r}
+matrix_1[3, 2:3]
+```
+2F.
+```{r}
+matrix_1[, 4]
+```
+2G.
+```{r}
+rownames(matrix_2x) <- c("isa", "dalawa", "tatlo")
+colnames(matrix_2x) <- c("uno", "dos", "tres", "quatro")
+matrix_2x
+
+```
+2H.
+```{r}
+dim(matrix_1) <- c(6, 2)
+matrix_1
+
+```
+Using Array
+A.
+```{r}
+values <- rep(c(1, 2, 3, 6, 7, 8, 9, 0, 3, 4, 5, 1), 2)
+array_3d <- array(values, dim = c(2, 4, 3))
+array_3d
+
+```
+B.
+```{r}
+dim(array_3d)
+```
+C.
+```{r}
+rownames_array <- c("a", "b")
+colnames_array <- c("A", "B", "C", "D")
+dimnames(array_3d) <- list(rownames_array, colnames_array, 
+                           c("1st-Dimensional Array", "2nd-Dimensional Array", "3rd-Dimensional Array"))
+array_3d
+
+```
+
