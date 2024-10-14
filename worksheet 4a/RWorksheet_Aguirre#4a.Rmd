@@ -1,0 +1,71 @@
+---
+title: "RWorksheet_Aguirre#4A"
+author: "Ryza Faith"
+date: "2024-10-14"
+output: pdf_document
+---
+
+```{r}
+data <- data.frame(
+  Shoe_Size = c(6.5, 9.0, 8.5, 8.5, 10.5, 7.0, 9.5, 9.0, 13.0, 7.5, 10.5, 8.5, 12.0, 10.5, 13.0, 11.5, 8.5, 5.0, 10.0, 6.5, 7.5, 8.5, 10.5, 8.5, 10.5, 11.0, 9.0, 13.0),
+Height = c(66.0, 68.0, 64.5, 65.0, 70.0, 64.0, 70.0, 71.0, 72.0, 64.0, 74.75, 67.0, 71.0, 71.0, 77.0, 72.0, 59.0, 62.0, 72.0, 66.0, 64.0, 67.0, 73.0, 69.0, 72.0, 70.0, 69.0, 70.0),
+Gender = c("F", "F", "F", "F", "M", "F", "F", "F", "M", "F", "M", "F", "M", "M", "M", "M", "F", "F", "M", "F", "F", "M", "M", "F", "M", "M", "M", "M")
+)
+data
+```
+B.
+```{r}
+females <- subset(data, Gender == "F", select = c(Shoe_Size, Height))
+females
+```
+B.
+```{r}
+males <- subset(data, Gender == "M", select = c(Shoe_Size, Height))
+males
+```
+C.
+```{r}
+mean_shoe_size <- mean(data$Shoe_Size)
+mean_shoe_size
+```
+C.
+```{r}
+mean_height <- mean(data$Height)
+mean_height
+```
+
+D.Is there a relationship between shoe size and height? Why?
+- No, because
+
+2. FACTOR
+
+```{r}
+Months <- c("March", "April", "JAnuary", "November", "January", "September", "October", "September", "November", "August", "January", "November", "November", "Febraury", "May", "Augsut")
+factor_Months <- factor(Months)
+factor_Months
+levels(factor_Months)
+
+```
+3. 
+```{r}
+summary(Months)
+
+summary(factor_Months)
+```
+4.Vector
+```{r}
+Directions <- c( "East", "West", "North")
+Frequency <- c(1L, 4L, 3L)
+Directions
+Frequency
+```
+4.Factor
+```{r}
+factor_Directions <- factor(Directions)
+factor_Directions
+
+factor_Frequency <- factor(Frequency)
+factor_Frequency
+
+```
+

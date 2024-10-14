@@ -129,12 +129,8 @@ if ("Fathers_Occupation" %in% names(household_data)) {
 ```
 3E.
 ```{r}
-# Check the structure of the data frame
 str(household_data)
-
-# Check the column names in the data frame
 names(household_data)
-# View the first few rows of the data frame
 head(household_data)
 females_with_driver_father <- subset(household_data, Sex == "Female" & `Fathers.Occupation` == "Driver")
 ```
