@@ -68,4 +68,10 @@ factor_Frequency <- factor(Frequency)
 factor_Frequency
 
 ```
+5.
+```{r}
+data <- read.table("~/DataScience/CS101/worksheet 4a/import_march.csv", header = TRUE, sep = ",", stringsAsFactors = FALSE)
+head(data)
+
+```
 
