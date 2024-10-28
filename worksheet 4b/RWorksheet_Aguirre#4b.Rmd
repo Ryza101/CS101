@@ -1,0 +1,215 @@
+---
+title: "RWorksheet_Aguirre#4b"
+author: "Ryza Faith Aguirre"
+date: "2024-10-28"
+output: pdf_document
+---
+Using Loop Function
+1.
+```{r}
+vectorA <- c(1,2,3,4,5)
+matrixA <- matrix(0, nrow=5, ncol=5)
+
+for(i in 1:5){
+  for(j in 1:5){
+    matrixA[i, j] <-ifelse(j>=i, vectorA[abs(j-i)+1],0)
+  }
+}
+
+matrixA
+```
+2.
+```{r}
+for (i in 1:5) {
+  for (j in 1:i) {
+    cat("*")
+  }
+  cat("\n") 
+}
+```
+3.
+```{r}
+A <- as.integer(readline(prompt = "Enter the starting position: "))
+
+fib1 <- 0
+fib2 <- 1
+count <- 1
+fib_sequence <- c()
+repeat {
+  z <- fib1 + fib2
+  
+  if (!is.na(A) && count >= A && z <= 500) {
+    fib_sequence <- c(fib_sequence, z)
+  }
+  
+  fib1 <- fib2
+  fib2 <- z
+  count <- count + 1
+  
+  if (z > 500) break
+}
+
+print(fib_sequence)
+
+```
+
+
+4a.
+```{r}
+library(readr)
+shoe_Sizes <- read.csv("~/DataScience/CS101/worksheet 4b/Shoe Sizes.csv")
+
+head(shoe_Sizes)
+```
+4b.
+```{r}
+male <- subset(shoe_Sizes, Gender == "M")
+female <- subset(shoe_Sizes, Gender == "F")
+num_males <- nrow(male)
+num_females <- nrow(female)
+
+cat("Number of Male observations:", num_males, "\n")
+cat("Number of Female observations:", num_females, "\n")
+```
+4c.
+```{r}
+gender_counts <- c(num_males, num_females)
+names(gender_counts) <- c("Male", "Female")
+barplot(gender_counts,
+        main = "Number of Males and Females in Household Data",xlab = "Gender",ylab = "Count",col = c("blue", "red"),legend = c("Male", "Female"),beside = TRUE)
+
+```
+5.
+```{r}
+expenses <- c(Food = 60, Electricity = 10, Savings = 5, Miscellaneous = 25)
+colors <- c("cyan", "violet", "lightgreen", "brown")
+pie(expenses,labels = paste(names(expenses), " - ", round((expenses / sum(expenses)) * 100, 1), "%"),col = colors,main = "Dela Cruz Family Monthly Income Distribution")
+
+```
+6a.
+```{r}
+data(iris)
+str(iris)
+
+```
+6b.
+```{r}
+means <-colMeans(iris[, 1:4])
+means
+```
+6c.
+```{r}
+species_count <- table(iris$Species)
+species_labels <-paste(names(species_count), species_count, sep = ":")
+
+color <-c("yellowgreen", "purple", "darkgreen")
+
+pie(species_count, labels= species_labels, col= color, main="Species Distribution in Iris DataSet")
+```
+6d.
+```{r}
+setosa <- subset(iris, Species == "setosa")
+versicolor <- subset(iris, Species == "versicolor")
+virginica <- subset(iris, Species=="virginica")
+
+tail(setosa)
+tail(versicolor)
+tail(virginica)
+```
+6e.
+```{r}
+iris$Species <-as.factor(iris$Species)
+
+Species_color <- c("setosa"="orange","versicolor"="pink", "virginica"= "yellow")
+species_pch <- c("setosa"= 16, "versicolor"= 17, "virginica"= 18)
+
+plot(iris$Sepal.Length, iris$Sepal.Width, col= Species_color[iris$Species],
+     xlab = "Sepal Length",
+     ylab= "Sepal Width", main ="Iris Dataset", sub= "Sepal width and length")
+
+legend ("topright", legend=levels(iris$Species), col= Species_color, pch = species_pch, title = "Species")
+```
+6f.
+Interpretation of the Scatterplot Result
+
+The scatterplot shows the relationship between Sepal.Length and Sepal.Width for the three species.Setosa points (in orange) tend to have shorter sepal lengths and widths.
+Versicolor points (in pink) are more spread out and overlap slightly with virginica.
+Virginica points (in yellow) have larger sepal lengths and widths, distinguishing them from setosa and overlapping with some versicolor points
+
+7.
+
+```{r}
+
+library(readxl)
+data <- read_excel("~/DataScience/CS101/worksheet 4b/alexa_file.xlsx")
+
+data$variation <- gsub("Black  Dot", "Black Dot", data$variation)
+data$variation <- gsub("White  Plus", "White Plus", data$variation)
+
+head(data$variation)
+```
+
+```{r}
+library(dplyr)
+
+variation_count <- data %>%
+  count(variation)
+save(variation_count, file = "variations.RData")
+print(variation_count)
+
+```
+7b.
+```{r}
+library(dplyr)
+load("variations.RData")
+
+barplot(variation_count$n, names.arg = variation_count$variation, col = "maroon",
+        main = "Variation Count", xlab = "Variation", ylab = "Count", las = 2)
+
+```
+
+```{r}
+library(readxl)
+library(dplyr)
+
+alexa_file <- "~/DataScience/CS101/worksheet 4b/alexa_file.xlsx"
+data <- read_excel(alexa_file)
+
+data$variation <- gsub("Black  Dot", "Black Dot", data$variation)
+data$variation <- gsub("Black  Plus", "Black Plus", data$variation)
+data$variation <- gsub("Black  Show", "Black Show", data$variation)
+data$variation <- gsub("Black  Spot", "Black Spot", data$variation)
+data$variation <- gsub("White  Dot", "White Dot", data$variation)
+data$variation <- gsub("White  Plus", "White Plus", data$variation)
+data$variation <- gsub("White  Show", "White Show", data$variation)
+data$variation <- gsub("White  Spot", "White Spot", data$variation)
+
+black_white_data <- data %>%
+  filter(grepl("Black|White", variation))
+
+variation_count <- black_white_data %>%
+  count(variation)
+
+black_variations <- variation_count %>% filter(grepl("Black", variation))
+white_variations <- variation_count %>% filter(grepl("White", variation))
+
+black_counts <- setNames(black_variations$n, gsub("Black ", "", black_variations$variation))
+white_counts <- setNames(white_variations$n, gsub("White ", "", white_variations$variation))
+
+common_variations <- c("Dot", "Plus", "Show", "Spot")
+
+black_counts <- black_counts[common_variations]
+black_counts[is.na(black_counts)] <- 0
+
+white_counts <- white_counts[common_variations]
+white_counts[is.na(white_counts)] <- 0
+
+barplot_matrix <- rbind(black_counts, white_counts)
+
+barplot(barplot_matrix, beside = TRUE, col = c("purple", "blue"),
+        main = "Count of Black and White Variations",
+        xlab = "Variation Type", ylab = "Count",
+        legend = rownames(barplot_matrix), args.legend = list(x = "topright"))
+
+```
+

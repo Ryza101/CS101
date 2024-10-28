@@ -101,6 +101,7 @@ seq_backwards
 ```{r}
 multiples <- which(seq(1, 24) %% 3 == 0 | seq(1, 24) %% 5 == 0)
 multiples
+length(multiples)
 ```
 11.
 ```{r}
