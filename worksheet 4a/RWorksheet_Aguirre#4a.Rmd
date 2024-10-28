@@ -85,7 +85,6 @@ exhaustive_search <- function(selected_number)
     return(as.character(selected_number))
   }
 
-set.seed(Sys.time())  
 random_number <- sample(1:50, 1)
 cat("The chosen number is:", random_number, "\n")
 result <- exhaustive_search(random_number)
@@ -167,5 +166,6 @@ for (i in 1:nrow(data)) {
 }
 
 cat(results, "\n")
+
 ```
 

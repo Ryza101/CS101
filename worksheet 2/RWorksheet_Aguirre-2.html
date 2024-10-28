@@ -512,10 +512,16 @@ print(subset_data)</code></pre>
 install.packages(&quot;readxl&quot;)</code></pre>
 <pre><code>## Installing package into &#39;C:/Users/ruelah/AppData/Local/R/win-library/4.4&#39;
 ## (as &#39;lib&#39; is unspecified)</code></pre>
-<pre><code>## package &#39;readxl&#39; successfully unpacked and MD5 sums checked
-## 
+<pre><code>## package &#39;readxl&#39; successfully unpacked and MD5 sums checked</code></pre>
+<pre><code>## Warning: cannot remove prior installation of package &#39;readxl&#39;</code></pre>
+<pre><code>## Warning in file.copy(savedcopy, lib, recursive = TRUE): problem copying
+## C:\Users\ruelah\AppData\Local\R\win-library\4.4\00LOCK\readxl\libs\x64\readxl.dll
+## to C:\Users\ruelah\AppData\Local\R\win-library\4.4\readxl\libs\x64\readxl.dll:
+## Permission denied</code></pre>
+<pre><code>## Warning: restored &#39;readxl&#39;</code></pre>
+<pre><code>## 
 ## The downloaded binary packages are in
-##  C:\Users\ruelah\AppData\Local\Temp\RtmpEbKCte\downloaded_packages</code></pre>
+##  C:\Users\ruelah\AppData\Local\Temp\RtmpKywRE3\downloaded_packages</code></pre>
 <pre class="r"><code>library(readxl)
 hotel_data &lt;- read_excel(&quot;~/RWorksheet_Aguirre#2/hotels-vienna.xlsx&quot;)
 hotel_data</code></pre>
