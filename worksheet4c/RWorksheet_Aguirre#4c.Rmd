@@ -1,0 +1,136 @@
+---
+title: "RWorksheet_Aguire#4C"
+author: "Ryza Faith Aguirre"
+date: "2024-11-04"
+output: pdf_document
+---
+1.
+```{r}
+mpg_data <- read.csv("mpg.csv")
+head(mpg_data)
+```
+1b. Categorical Variables in the mpg Dataset
+manufacturer, model, trans, drv, fl, class 
+
+1c. Continuous Variables in the mpg Dataset
+displ, cty, hwy, year
+
+2a.
+```{r}
+library(dplyr)
+
+model_count_by_manufacturer <- mpg_data %>%
+  group_by(manufacturer) %>%
+  summarise(unique_models = n_distinct(model)) %>%
+  arrange(desc(unique_models))
+
+print(model_count_by_manufacturer)
+
+variation_count_by_model <- mpg_data %>%
+  group_by(model) %>%
+  summarise(variations = n()) %>%
+  arrange(desc(variations))
+
+print(variation_count_by_model)
+
+
+```
+2b. Using plot()
+```{r}
+sorted_data <- model_count_by_manufacturer[order(model_count_by_manufacturer$unique_models, decreasing = TRUE),]
+barplot(sorted_data$unique_models, names.arg = sorted_data$manufacturer, las = 2, col = "cyan",
+        main = "Number of Unique Models by Manufacturer",
+        xlab = "Manufacturer", ylab = "Number of Unique Models")
+
+```
+2b. ggplot()
+```{r}
+library(ggplot2)
+ggplot(model_count_by_manufacturer, aes(x = reorder(manufacturer, -unique_models), y = unique_models)) +
+  geom_bar(stat = "identity", fill = "cyan") +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
+  labs(title = "Number of Unique Models by Manufacturer",
+       x = "Manufacturer", y = "Number of Unique Models")
+
+```
+2a.
+```{r}
+ggplot(mpg_data, aes(x = model, y = manufacturer)) + geom_point()
+
+```
+2a. This plot shows the relationship between model and manufacturer but may not be particularly informative. Since there are many model names, they may overlap, making the plot cluttered and difficult to interpret. It essentially shows which manufacturers have which models but doesn’t provide much additional insight.
+
+2b. Is This Plot Useful? Suggested Improvements
+The scatter plot isn’t particularly useful in this format due to overlap and lack of quantitative insight.
+
+3.
+```{r}
+top_20_mpg <- mpg_data[1:20, ]
+
+ggplot(top_20_mpg, aes(x = model, y = year)) +
+  geom_point(color = "blue") +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
+  labs(title = "Model vs. Year (Top 20 Observations)",
+       x = "Model", y = "Year")
+
+```
+4.
+```{r}
+library(dplyr)
+
+cars_per_model <- mpg_data %>%
+  group_by(model) %>%
+  summarise(car_count = n()) %>%
+  arrange(desc(car_count))
+
+print(cars_per_model)
+
+```
+4a.
+```{r}
+top_20_models <- cars_per_model[1:20, ]
+
+library(ggplot2)
+ggplot(top_20_models, aes(x = reorder(model, -car_count), y = car_count, fill = model)) +
+  geom_bar(stat = "identity") +
+  labs(title = "Top 20 Models by Number of Cars",
+       x = "Model",
+       y = "Number of Cars") +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
+  scale_fill_brewer(palette = "Set3")
+
+```
+5.
+```{r}
+ggplot(mpg_data, aes(x = cyl, y = displ, color = displ)) +
+  geom_point() +
+  labs(title = "Relationship between No. of Cylinders and Engine Displacement",
+       x = "Number of Cylinders",
+       y = "Engine Displacement (L)") +
+  scale_color_gradient(low = "cyan", high = "darkgreen")
+
+```
+The plot shows that as the number of cylinders (cyl) increases, the engine displacement (displ) also generally increases. The positive trend suggests that cars with more cylinders tend to have larger engines, which makes sense because more cylinders typically mean a larger engine size. The color gradient further emphasizes the increase in displacement as the cylinder count goes up.
+
+6.
+```{r}
+ggplot(mpg_data, aes(x = displ, y = hwy, color = cty)) +
+  geom_point() +
+  labs(title = "Relationship between Engine Displacement and Highway MPG",
+       x = "Engine Displacement (L)",
+       y = "Highway Miles per Gallon",
+       color = "City MPG") +
+  scale_color_gradient(low = "black", high = "darkblue")
+
+```
+6.
+```{r}
+traffic_data <- read.csv("~/DataScience/CS101/worksheet4c/traffic.csv")
+head(traffic_data)
+
+str(traffic_data)
+nrow(traffic_data)  
+colnames(traffic_data)
+```
+
+
