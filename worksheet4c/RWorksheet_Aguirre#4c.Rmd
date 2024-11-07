@@ -6,7 +6,7 @@ output: pdf_document
 ---
 1.
 ```{r}
-mpg_data <- read.csv("mpg.csv")
+mpg_data <- read.csv("~/DataScience/CS101/worksheet4c/mpg.csv")
 head(mpg_data)
 ```
 1b. Categorical Variables in the mpg Dataset
@@ -123,14 +123,99 @@ ggplot(mpg_data, aes(x = displ, y = hwy, color = cty)) +
   scale_color_gradient(low = "black", high = "darkblue")
 
 ```
-6.
+6a.
 ```{r}
 traffic_data <- read.csv("~/DataScience/CS101/worksheet4c/traffic.csv")
+# View column names and dataset structure
+colnames(traffic_data)
+str(traffic_data)
+
+# Display the first few rows to check for column name formatting issues
 head(traffic_data)
 
-str(traffic_data)
-nrow(traffic_data)  
-colnames(traffic_data)
+
+```
+6b.
+```{r}
+junctions <- split(traffic_data, traffic_data$Junction)
+junctions
 ```
 
+6c.
+```{r}
+traffic_data$DateTime <- as.POSIXct(traffic_data$DateTime, format = "%Y-%m-%d %H:%M:%S")
+ggplot(traffic_data, aes(x = DateTime, y = Vehicles)) +
+geom_line(color = "blue") +
+labs(title = "Traffic Volume Over Time at Each Junction",
+x = "DateTime",
+y = "Number of Vehicles") +
+facet_wrap(~ Junction)
+
+```
+7a.
+```{r}
+library(readxl)
+
+alexa_data <- read_excel("~/DataScience/CS101/worksheet4c/alexa_file.xlsx")
+
+str(alexa_data)
+
+```
+```{r}
+ncol(alexa_data)
+```
+
+7b.
+```{r}
+library(dplyr)
+print(colnames(alexa_data))
+```
+7b.
+```{r}
+variation_totals <- alexa_data %>%
+  group_by(variation) %>%
+  summarize(total = n())
+
+variation_totals
+
+```
+7c.
+```{r}
+library("ggplot2")
+ggplot(alexa_data, aes(x = date, y = variation)) +
+geom_point() + labs(title = "Variations Timeline", x = "Date", y = "Variations", color = "Verified")
+```
+7d.
+
+```{r}
+library(dplyr)
+library(ggplot2)
+
+alexa_data$date <- as.Date(alexa_data$date, format = "%d-%b-%y")
+
+review_count <- alexa_data %>%
+  group_by(date) %>%
+  summarise(review_count = n(), .groups = "drop")  
+
+ggplot(data = review_count, aes(x = date, y = review_count)) +
+  geom_line(color = "purple", linewidth = 1) +
+  labs(title = "Number of Verified Reviews Over Time", 
+       x = "Date", 
+       y = "Number of Verified Reviews") +
+  theme_minimal()
+
+```
+7e.
+```{r}
+variation_rates <- alexa_data%>%
+group_by(variation) %>%
+summarise(average_ratings = mean(rating, na.rm = TRUE)) %>%
+arrange(desc(average_ratings))
+ggplot(variation_rates, aes(x = reorder(variation, -average_ratings), y = average_ratings)) +
+geom_bar(stat = "identity", fill = "grey") +
+coord_flip() + 
+labs(title = "Average Product Variation Ratings", x = "Variations", y = "Average Rating") +
+theme_minimal()
+
+```
 
